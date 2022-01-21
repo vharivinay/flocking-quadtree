@@ -28,7 +28,7 @@ function setupUI() {
   boidText = createP('Number of Boids');
   boidText.style('font-size', '16px');
   boidText.position(width + 20, 80);
-  numBoids = createSlider(3, 1000, 500, 25);
+  numBoids = createSlider(3, 1000, 100, 25);
   numBoids.position(width + 20, 120);
 
   count = createP(str(numBoids.value()));
