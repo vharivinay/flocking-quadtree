@@ -1,12 +1,20 @@
+const capturer = new CCapture({
+  framerate: 60,
+  format: 'webm',
+  name: 'flocking',
+  quality: 100,
+  verbose: true,
+});
 const flock = [];
-let enableQtree, QtreeShow, preceptShow, isLoop;
+let enableQtree, QtreeShow, preceptShow, isLoop, isRecording, save;
+let p5Canvas;
 
 function setup() {
-  createCanvas(900, 900);
+  p5Canvas = createCanvas(900, 900);
 
   setupUI();
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 500; i++) {
     flock.push(new Boid());
   }
 
@@ -14,9 +22,17 @@ function setup() {
   showQtree = false;
   preceptShow = false;
   isLoop = true;
+  isRecording = false;
+  save = false;
+  freshFrame = true;
 }
 
 function draw() {
+  if (isRecording && freshFrame) {
+    freshFrame = false;
+    capturer.start();
+  }
+
   background(51, 50);
 
   numOfBoids();
@@ -54,6 +70,18 @@ function draw() {
     }
   }
   qtree.clear();
+
+  if (isRecording) {
+    capturer.capture(p5Canvas.canvas);
+  }
+
+  if (save && !isRecording) {
+    //noLoop();
+    save = false;
+    freshFrame = true;
+    capturer.stop();
+    capturer.save();
+  }
 
   fps.html('FPS: ' + str(round(frameRate(), 2)));
 }

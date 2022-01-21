@@ -1,6 +1,6 @@
 let alignSlider, cohesionSlider, separationSlider, numBoids;
 let alignText, cohesionText, seperationText, boidText, count, fps;
-let checkbox, showQtree, showPercept, button;
+let checkbox, showQtree, showPercept, button, record;
 
 function setupUI() {
   enableQtree = createCheckbox('Optimize', true);
@@ -20,10 +20,15 @@ function setupUI() {
   button.size(140, 80);
   button.mousePressed(toggleLoop);
 
+  record = createButton('Toggle Record');
+  record.position(width + 20, height - 200);
+  record.size(140, 80);
+  record.mousePressed(toggleRecord);
+
   boidText = createP('Number of Boids');
   boidText.style('font-size', '16px');
   boidText.position(width + 20, 80);
-  numBoids = createSlider(3, 1000, 100, 25);
+  numBoids = createSlider(3, 1000, 500, 25);
   numBoids.position(width + 20, 120);
 
   count = createP(str(numBoids.value()));
@@ -84,6 +89,16 @@ function toggleLoop() {
   } else {
     loop();
     isLoop = true;
+  }
+}
+
+function toggleRecord() {
+  if (isRecording) {
+    isRecording = false;
+    save = true;
+  } else {
+    isRecording = true;
+    save = false;
   }
 }
 
