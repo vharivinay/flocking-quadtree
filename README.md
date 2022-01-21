@@ -3,4 +3,4 @@ Boids or Bird-oid objects is an artificial life program, developed by Craig Reyn
 
 This code integrates boids simulation with a quadtree optimization algorithm to make computations more efficient.
 
-[Link to webpage](https://m87k452b.github.io/floacking-quadtree/)
+[Link to webpage](https://m87k452b.github.io/flocking-quadtree/)
