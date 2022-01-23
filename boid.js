@@ -13,16 +13,24 @@ class Boid {
     );
   }
 
-  edges() {
-    if (this.position.x > width) {
-      this.position.x = 0;
-    } else if (this.position.x < 0) {
-      this.position.x = width;
-    }
-    if (this.position.y > height) {
-      this.position.y = 0;
-    } else if (this.position.y < 0) {
-      this.position.y = height;
+  edges(boundaryType) {
+    if (boundaryType === 'Unbound') {
+      if (this.position.x > width) {
+        this.position.x = 0;
+      } else if (this.position.x < 0) {
+        this.position.x = width;
+      }
+      if (this.position.y > height) {
+        this.position.y = 0;
+      } else if (this.position.y < 0) {
+        this.position.y = height;
+      }
+    } else if (boundaryType === 'Bound') {
+      if (this.position.x > width || this.position.x < 0) {
+        this.velocity.x *= -1;
+      } else if (this.position.y > height || this.position.y < 0) {
+        this.velocity.y *= -1;
+      }
     }
   }
 

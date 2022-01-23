@@ -1,11 +1,13 @@
 let alignSlider, cohesionSlider, separationSlider, numBoids;
 let alignText, cohesionText, seperationText, boidText, count, fps;
 let checkbox, showQtree, showPercept, button, record;
+let bounding, boundingTitle, qtreeCapacity, qtreeCapacityTitle;
+let sourceCode;
 
 function setupUI() {
   enableQtree = createCheckbox('Optimize', true);
   enableQtree.position(width + 20, 20);
-  enableQtree.changed(myCheckedEvent);
+  enableQtree.changed(toOptimize);
 
   showQtree = createCheckbox('ShowQtree', false);
   showQtree.position(width + 20, 40);
@@ -28,7 +30,7 @@ function setupUI() {
   boidText = createP('Number of Boids');
   boidText.style('font-size', '16px');
   boidText.position(width + 20, 80);
-  numBoids = createSlider(3, 1000, 100, 25);
+  numBoids = createSlider(0, 1000, 100, 25);
   numBoids.position(width + 20, 120);
 
   count = createP(str(numBoids.value()));
@@ -53,12 +55,45 @@ function setupUI() {
   separationSlider = createSlider(0, 2, 1, 0.1);
   separationSlider.position(width + 20, 300);
 
+  boundingTitle = createP('Bounding Type');
+  boundingTitle.style('font-size', '16px', 'font-weight', 'strong');
+  boundingTitle.position(width + 240, 10);
+
+  bounding = createRadio();
+  bounding.option('Bound');
+  bounding.option('Unbound');
+  bounding.style('width', '89px');
+  bounding.position(width + 240, 50);
+  bounding.attribute('name', 'Boundary Type');
+  bounding.selected('Unbound');
+
+  qtreeCapacityTitle = createP('Qtree Capacity');
+  qtreeCapacityTitle.style('font-size', '16px', 'font-weight', 'strong');
+  qtreeCapacityTitle.position(width + 240, 100);
+
+  qtreeCapacity = createRadio();
+  qtreeCapacity.option(16, 'Coarse');
+  qtreeCapacity.option(8, 'Medium');
+  qtreeCapacity.option(2, 'Fine');
+  qtreeCapacity.style('width', '89px');
+  qtreeCapacity.position(width + 240, 140);
+  qtreeCapacity.attribute('name', 'qtreeCapacity');
+  qtreeCapacity.selected('16');
+
   fps = createP('FPS: ');
   fps.style('font-size', '16px', 'font-weight', 'bold');
   fps.position(width + 20, 320);
+
+  sourceCode = createA(
+    'https://github.com/M87K452b/flocking-quadtree',
+    'Source Code',
+    '_blank'
+  );
+  sourceCode.style('font-size', '16px', 'font-weight', 'bold');
+  sourceCode.position(width + 20, 360);
 }
 
-function myCheckedEvent() {
+function toOptimize() {
   if (this.checked()) {
     return (optimize = true);
   } else {
