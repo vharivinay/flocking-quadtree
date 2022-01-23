@@ -8,6 +8,7 @@ This code integrates boids simulation with a quadtree optimization algorithm to 
 [Link to video render](https://youtu.be/Ya8T3lhLIgk)
 
 [Link to web app](https://m87k452b.github.io/flocking-quadtree/)
+- Works best in chrome
 
 ### References:
 [Flocking tutorial](https://www.youtube.com/watch?v=mhjuuHl6qHM)
