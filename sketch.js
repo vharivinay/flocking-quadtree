@@ -6,7 +6,8 @@ const capturer = new CCapture({
   verbose: true,
 });
 const flock = [];
-let enableQtree, QtreeShow, preceptShow, isLoop, isRecording, save;
+let enableQtree, QtreeShow, preceptShow, boundaryType;
+let isLoop, isRecording, save;
 let p5Canvas;
 
 function setup() {
@@ -18,13 +19,14 @@ function setup() {
     flock.push(new Boid());
   }
 
-  enableQtree = true;
+  optmize = true;
   showQtree = false;
   preceptShow = false;
   isLoop = true;
   isRecording = false;
   save = false;
   freshFrame = true;
+  boundaryType = 'Unbound';
 }
 
 function draw() {
@@ -39,7 +41,8 @@ function draw() {
 
   // Make quadtree
   let boundary = new Rectangle(width / 2, height / 2, width, height);
-  let qtree = new QuadTree(boundary, 12);
+  let capacity = qtreeCapacity.value();
+  let qtree = new QuadTree(boundary, capacity);
 
   for (let boid of flock) {
     let point = new Point(boid.position.x, boid.position.y, boid);
@@ -51,19 +54,19 @@ function draw() {
 
   // flock
   for (let boid of flock) {
-    if (enableQtree) {
+    if (enableQtree.checked()) {
       let range = new Circle(boid.position.x, boid.position.y, 50, 50);
       let points = qtree.query(range);
       let newFlock = [];
       for (let point of points) {
         newFlock.push(point.userData);
       }
-      boid.edges();
+      boid.edges(bounding.value());
       boid.flock(newFlock);
       boid.update();
       boid.show(preceptShow);
     } else {
-      boid.edges();
+      boid.edges(bounding.value());
       boid.flock(flock);
       boid.update();
       boid.show(preceptShow);
@@ -76,7 +79,6 @@ function draw() {
   }
 
   if (save && !isRecording) {
-    //noLoop();
     save = false;
     freshFrame = true;
     capturer.stop();
