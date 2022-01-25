@@ -35,7 +35,7 @@ class Boid {
   }
 
   flock(boids) {
-    let perceptionRadius = 50;
+    let perceptionRadius = perceptSlider.value();
     let total = 0;
     let toAlign = createVector();
     let toGroup = createVector();
@@ -102,7 +102,12 @@ class Boid {
       noFill();
       strokeWeight(1);
       stroke(0, 255, 0);
-      circle(this.position.x, this.position.y, 50, 50);
+      circle(
+        this.position.x,
+        this.position.y,
+        perceptSlider.value(),
+        perceptSlider.value()
+      );
     }
   }
 }

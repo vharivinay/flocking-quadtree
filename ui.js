@@ -1,5 +1,5 @@
-let alignSlider, cohesionSlider, separationSlider, numBoids;
-let alignText, cohesionText, seperationText, boidText, count, fps;
+let alignSlider, cohesionSlider, separationSlider, numBoids, perceptSlider;
+let alignText, cohesionText, seperationText, perceptText, boidText, count, fps;
 let checkbox, showQtree, showPercept, button, record;
 let bounding, boundingTitle, qtreeCapacity, qtreeCapacityTitle;
 let sourceCode;
@@ -55,6 +55,25 @@ function setupUI() {
   separationSlider = createSlider(0, 2, 1, 0.1);
   separationSlider.position(width + 20, 300);
 
+  perceptText = createP('Perception Radius');
+  perceptText.style('font-size', '16px');
+  perceptText.position(width + 20, 320);
+  perceptSlider = createSlider(0, 200, 50, 5);
+  perceptSlider.position(width + 20, 360);
+
+  fps = createP('FPS: ');
+  fps.style('font-size', '16px', 'font-weight', 'bold');
+  fps.position(width + 20, 380);
+
+  sourceCode = createA(
+    'https://github.com/M87K452b/flocking-quadtree',
+    'Source Code',
+    '_blank'
+  );
+  sourceCode.style('font-size', '16px', 'font-weight', 'bold');
+  sourceCode.position(width + 20, 440);
+
+  // Column 2
   boundingTitle = createP('Bounding Type');
   boundingTitle.style('font-size', '16px', 'font-weight', 'strong');
   boundingTitle.position(width + 240, 10);
@@ -79,18 +98,6 @@ function setupUI() {
   qtreeCapacity.position(width + 240, 140);
   qtreeCapacity.attribute('name', 'qtreeCapacity');
   qtreeCapacity.selected('16');
-
-  fps = createP('FPS: ');
-  fps.style('font-size', '16px', 'font-weight', 'bold');
-  fps.position(width + 20, 320);
-
-  sourceCode = createA(
-    'https://github.com/M87K452b/flocking-quadtree',
-    'Source Code',
-    '_blank'
-  );
-  sourceCode.style('font-size', '16px', 'font-weight', 'bold');
-  sourceCode.position(width + 20, 360);
 }
 
 function toOptimize() {
