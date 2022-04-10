@@ -92,7 +92,8 @@
             step="25"
             id="numBoids"
             name="numBoids"
-          /><br>
+            oninput="this.nextElementSibling.value = this.value"
+          /><output class="pl-4" id="numBoids">100</output><br>
           <label for="alignSlider" class="form-label">Align Slider</label><br>
           <input
             type="range"
@@ -103,7 +104,8 @@
             step="0.1"
             id="alignSlider"
             name="alignSlider"
-          /><br>
+            oninput="this.nextElementSibling.value = this.value"
+          /><output class="pl-4" id="alignSlider">1</output><br>
           <label for="cohesionSlider" class="form-label">Cohesion Slider</label><br>
           <input
             type="range"
@@ -114,7 +116,8 @@
             step="0.1"
             id="cohesionSlider"
             name="cohesionSlider"
-          /><br>
+            oninput="this.nextElementSibling.value = this.value"
+          /><output class="pl-4" id="cohesionSlider">1</output><br>
           <label for="separationSlider" class="form-label"
             >Separation Slider</label
           ><br>
@@ -127,7 +130,8 @@
             step="0.1"
             id="separationSlider"
             name="separationSlider"
-          /><br>
+            oninput="this.nextElementSibling.value = this.value"
+          /><output class="pl-4" id="separationSlider">1</output><br>
           <label for="perceptionRadius" class="form-label"
             >Perception Radius</label
           ><br>
@@ -140,7 +144,8 @@
             step="5"
             id="perceptionRadius"
             name="perceptionRadius"
-          />
+            oninput="this.nextElementSibling.value = this.value"
+          /><output class="pl-4" id="perceptionRadius">50</output>
         </div>
         <div class="text-justify">
         <hr>

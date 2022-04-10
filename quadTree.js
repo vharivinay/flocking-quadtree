@@ -154,7 +154,7 @@ class QuadTree {
   }
 
   show() {
-    stroke(80);
+    stroke(255);
     strokeWeight(0.5);
     noFill();
     rectMode(CENTER);
