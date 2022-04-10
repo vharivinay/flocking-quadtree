@@ -11,7 +11,8 @@ let isLoop, isRecording, save;
 let p5Canvas;
 
 function setup() {
-  p5Canvas = createCanvas(900, 900);
+  p5Canvas = createCanvas(800, 800);
+  p5Canvas.parent('sketch-holder');
 
   setupUI();
 
@@ -19,7 +20,7 @@ function setup() {
     flock.push(new Boid());
   }
 
-  optmize = true;
+  optimize = true;
   showQtree = false;
   preceptShow = false;
   isLoop = true;
@@ -41,7 +42,11 @@ function draw() {
 
   // Make quadtree
   let boundary = new Rectangle(width / 2, height / 2, width, height);
-  let capacity = qtreeCapacity.value();
+  for (i = 0; i < qtreeCapacity.length; i++) {
+    if (qtreeCapacity[i].checked) {
+      var capacity = qtreeCapacity[i].value;
+    }
+  }
   let qtree = new QuadTree(boundary, capacity);
 
   for (let boid of flock) {
@@ -49,6 +54,12 @@ function draw() {
     qtree.insert(point);
     if (showQtree) {
       qtree.show();
+    }
+  }
+
+  for (i = 0; i < bounding.length; i++) {
+    if (bounding[i].checked) {
+      var bounding_value = bounding[i].value;
     }
   }
 
@@ -61,12 +72,12 @@ function draw() {
       for (let point of points) {
         newFlock.push(point.userData);
       }
-      boid.edges(bounding.value());
+      boid.edges(bounding_value);
       boid.flock(newFlock);
       boid.update();
       boid.show(preceptShow);
     } else {
-      boid.edges(bounding.value());
+      boid.edges(bounding_value);
       boid.flock(flock);
       boid.update();
       boid.show(preceptShow);
@@ -84,6 +95,4 @@ function draw() {
     capturer.stop();
     capturer.save();
   }
-
-  fps.html('FPS: ' + str(round(frameRate(), 2)));
 }

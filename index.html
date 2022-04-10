@@ -7,16 +7,156 @@
     <title>Flocking</title>
 
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script src="libraries/p5.min.js"></script>
     <script src="libraries/p5.sound.min.js"></script>
     <script src="libraries/CCapture.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <script src="sketch.js"></script>
-    <script src="boid.js"></script>
-    <script src="quadTree.js"></script>
-    <script src="ui.js"></script>
+  <div class="container">
+  <p class="text-justify text-secondary">
+    <strong>Note: </strong> For best experience, please view this in a larger screen, i.e., desktop or a tablet.
+    Although it is responsive, because of the interactive elements it becomes uneasy to use.
+  </p>
+  <h2>Interactive Flocking Simulation</h2>
+  <div class="row">
+    <div class="col-xl-9">
+      <div class="container">
+      <div id="sketch-holder">
+        <!-- Main Sketch -->
+        <script src="sketch.js"></script>
+        <!-- Other Scripts -->
+        <script src="boid.js"></script>
+        <script src="quadTree.js"></script>
+        <script src="ui.js"></script>
+      </div>
+      </div>
+    </div>
+    <div class="col-xl-3">
+      <div class="text-justify">
+        <h3>Controls</h3>
+      </div>
+      <div id="check-box-holder" class="p-1">
+        <input type="checkbox" id="enableQtree" name="enableQtree" value="Optimize" checked></input>
+        <label for="enableQtree">Optimize</label><br>
+        <input type="checkbox" id="showQtree" name="showQtree" value="showQtree"></input>
+        <label for="showQtree">ShowQtree</label><br>
+        <input type="checkbox" id="showPercept" name="showPrecept" value="showPrecept"></input>
+        <label for="enableQtree">ShowPrecept</label>
+      </div>
+      <hr>
+      <div id="control-holder">
+        <div id="radio-holder" class="p-1">
+          <h6>Boundary Type</h6>
+          <input type="radio" id="bound" value="Bound" name="boundaryType"/>
+          <label for="boundaryType" class="border-right p-2">Bound</label>
+          <input
+            type="radio"
+            id="unbound"
+            value="Unbound"
+            name="boundaryType"
+            checked="true"
+          />
+          <label for="boundaryType" >Unbound</label><br />
+        </div>
+        <div id="qtree-radio-holder">
+          <h6>Qtree Capacity</h6>
+          <input
+            type="radio"
+            id="coarse"
+            value="16"
+            name="qtreeCapacity"
+            checked="true"
+          />
+          <label for="qtreeCapacity" class="border-right p-2">Coarse</label>
+          <input type="radio" id="medium" value="8" name="qtreeCapacity"/>
+          <label for="qtreeCapacity" class="border-right p-2">Medium</label>
+          <input type="radio" id="fine" value="2" name="qtreeCapacity" />
+          <label for="qtreeCapacity">Fine</label><br />
+        </div>
+        <hr>
+        <div id="slider-container">
+          <h6>Boid Parameters</h6>
+          <label for="numBoids" class="form-label">Number of Boids</label><br>
+          <input
+            type="range"
+            class="form-range"
+            min="0"
+            max="1000"
+            value="100"
+            step="25"
+            id="numBoids"
+            name="numBoids"
+          /><br>
+          <label for="alignSlider" class="form-label">Align Slider</label><br>
+          <input
+            type="range"
+            class="form-range"
+            min="0"
+            max="2"
+            value="1"
+            step="0.1"
+            id="alignSlider"
+            name="alignSlider"
+          /><br>
+          <label for="cohesionSlider" class="form-label">Cohesion Slider</label><br>
+          <input
+            type="range"
+            class="form-range"
+            min="0"
+            max="2"
+            value="1"
+            step="0.1"
+            id="cohesionSlider"
+            name="cohesionSlider"
+          /><br>
+          <label for="separationSlider" class="form-label"
+            >Separation Slider</label
+          ><br>
+          <input
+            type="range"
+            class="form-range"
+            min="0"
+            max="2"
+            value="1"
+            step="0.1"
+            id="separationSlider"
+            name="separationSlider"
+          /><br>
+          <label for="perceptionRadius" class="form-label"
+            >Perception Radius</label
+          ><br>
+          <input
+            type="range"
+            class="form-range"
+            min="0"
+            max="200"
+            value="50"
+            step="5"
+            id="perceptionRadius"
+            name="perceptionRadius"
+          />
+        </div>
+        <div class="text-justify">
+        <hr>
+        <div id="button-container">
+          <button type="button" class="btn btn-primary btn-sm" id="toggleLoop">
+            Play / Pause
+          </button>
+          <p></p>
+          <button type="button" class="btn btn-secondary btn-sm" id="record">
+            Record
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
   </body>
 </html>
