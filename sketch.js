@@ -86,12 +86,14 @@ function draw() {
   qtree.clear();
 
   if (isRecording) {
+    record.html('Stop Recording')
     capturer.capture(p5Canvas.canvas);
   }
 
   if (save && !isRecording) {
     save = false;
     freshFrame = true;
+    record.html('Record')
     capturer.stop();
     capturer.save();
   }
