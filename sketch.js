@@ -52,9 +52,9 @@ function draw() {
   for (let boid of flock) {
     let point = new Point(boid.position.x, boid.position.y, boid);
     qtree.insert(point);
-    if (showQtree) {
-      qtree.show();
-    }
+  }
+  if (showQtree) {
+    qtree.show();
   }
 
   for (i = 0; i < bounding.length; i++) {
